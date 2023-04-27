@@ -7,6 +7,7 @@ import lombok.Getter;
  * 用户级别的错误码（用户引起的错误返回码，可以不用关注）
  *
  * @author liyc
+ * @see <a href="https://github.com/1024-lab/smart-admin/blob/master/smart-admin-api/sa-common/src/main/java/net/lab1024/sa/common/common/code/UserErrorCode.java">查看来源</a>
  */
 @Getter
 @AllArgsConstructor

@@ -1,5 +1,8 @@
 package net.koodar.forge.common.code;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -9,6 +12,7 @@ import java.util.stream.Stream;
  * 错误码 注册容器
  *
  * @author liyc
+ * @see <a href="https://github.com/1024-lab/smart-admin/blob/master/smart-admin-api/sa-common/src/main/java/net/lab1024/sa/common/common/code/ErrorCodeRangeContainer.java">查看来源</a>
  */
 public class ErrorCodeRangeContainer {
 
@@ -129,5 +133,10 @@ public class ErrorCodeRangeContainer {
 		return errorCounter;
 	}
 
-
+	@Getter
+	@AllArgsConstructor
+	public static class CodeRange {
+		private Integer start;
+		private Integer end;
+	}
 }

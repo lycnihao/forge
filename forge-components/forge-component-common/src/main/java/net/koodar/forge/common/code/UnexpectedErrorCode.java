@@ -7,6 +7,7 @@ import lombok.Getter;
  * 未预期的错误码（即发生了不可能发生的事情，此类返回码应该高度重视）
  *
  * @author liyc
+ * @see <a href="https://github.com/1024-lab/smart-admin/blob/master/smart-admin-api/sa-common/src/main/java/net/lab1024/sa/common/common/code/UnexpectedErrorCode.java">查看来源</a>
  */
 @Getter
 @AllArgsConstructor
