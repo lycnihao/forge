@@ -1,5 +1,6 @@
 package net.koodar.forge.admin.adapter;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import net.koodar.forge.admin.application.dto.RoleParamDTO;
 import net.koodar.forge.admin.application.dto.RoleQueryDTO;
@@ -26,6 +27,7 @@ public class RoleController {
 	 * 获取所有角色列表
 	 * @return 角色列表
 	 */
+	@Operation(summary = "获取所有角色列表")
 	@GetMapping("/role/listRole")
 	public Response listRole() {
 		return roleAppService.listRole();
@@ -37,6 +39,7 @@ public class RoleController {
 	 * @param roleQuery 查询条件
 	 * @return 角色列表
 	 */
+	@Operation(summary = "查询角色列表")
 	@GetMapping("/role/list")
 	public Response getRoleList(
 			@PageableDefault(sort = {"createTime"}, direction = DESC) Pageable pageable,
@@ -49,6 +52,7 @@ public class RoleController {
 	 * @param id 角色id
 	 * @return 角色信息
 	 */
+	@Operation(summary = "获取角色信息")
 	@GetMapping("/role/info")
 	public Response getRoleInfo(@RequestParam Long id) {
 		return roleAppService.getRoleInfo(id);
@@ -60,6 +64,7 @@ public class RoleController {
 	 * @param roleParamDTO 角色参数
 	 * @return 操作结果
 	 */
+	@Operation(summary = "添加角色")
 	@PostMapping("/role/add")
 	public Response addRole(@RequestBody RoleParamDTO roleParamDTO) {
 		return roleAppService.addRole(roleParamDTO);
@@ -71,6 +76,7 @@ public class RoleController {
 	 * @param roleParamDTO 角色参数
 	 * @return 操作结果
 	 */
+	@Operation(summary = "更新角色")
 	@PostMapping("/role/update")
 	public Response updateRole(@RequestBody RoleParamDTO roleParamDTO) {
 		return roleAppService.updateRole(roleParamDTO);
@@ -82,6 +88,7 @@ public class RoleController {
 	 * @param roleId 角色Id
 	 * @return 操作结果
 	 */
+	@Operation(summary = "删除角色")
 	@PostMapping("/role/delete")
 	public Response deleteRole(@RequestParam Long roleId) {
 		return roleAppService.deleteRole(roleId);

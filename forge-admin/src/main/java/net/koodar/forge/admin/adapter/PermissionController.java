@@ -1,5 +1,6 @@
 package net.koodar.forge.admin.adapter;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import net.koodar.forge.admin.application.dto.PermissionParamDTO;
 import net.koodar.forge.admin.application.service.PermissionAppService;
@@ -19,6 +20,7 @@ public class PermissionController {
 	 * 获取所有权限
 	 * @return 权限tree
 	 */
+	@Operation(summary = "获取所有权限")
 	@GetMapping("/permission/getAllPermissions")
 	public Response listAllPermission() {
 		return permissionAppService.listTree();
@@ -30,6 +32,7 @@ public class PermissionController {
 	 * @param permissionParamDTO 权限参数
 	 * @return 操作结果
 	 */
+	@Operation(summary = "添加权限")
 	@PostMapping("/permission/add")
 	public Response addPermission(@RequestBody PermissionParamDTO permissionParamDTO) {
 		return permissionAppService.addPermission(permissionParamDTO);
@@ -41,6 +44,7 @@ public class PermissionController {
 	 * @param permissionParamDTO 权限参数
 	 * @return 操作结果
 	 */
+	@Operation(summary = "更新权限")
 	@PostMapping("/permission/update")
 	public Response updatePermission(@RequestBody PermissionParamDTO permissionParamDTO) {
 		return permissionAppService.updatePermission(permissionParamDTO);
@@ -52,6 +56,7 @@ public class PermissionController {
 	 * @param permissionId 权限Id
 	 * @return 操作结果
 	 */
+	@Operation(summary = "删除权限")
 	@PostMapping("/permission/delete")
 	public Response deletedPermission(@RequestParam Long permissionId) {
 		return permissionAppService.deletePermission(permissionId);

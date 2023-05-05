@@ -1,5 +1,6 @@
 package net.koodar.forge.admin.adapter;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import net.koodar.forge.admin.application.service.PermissionAppService;
 import net.koodar.forge.admin.application.vo.MenuVO;
@@ -23,6 +24,7 @@ public class MenusController {
 	 *
 	 * @return 菜单
 	 */
+	@Operation(summary = "获取当前用户菜单列表")
 	@GetMapping("/menus")
 	public MultiResponse<MenuVO> getMenus() {
 		return permissionAppService.getMenus();

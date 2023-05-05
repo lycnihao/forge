@@ -108,6 +108,8 @@ public class AutoConfiguration {
 		http
 				.authorizeHttpRequests((authorize) -> authorize
 						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+						// springdoc-openapi
+						.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
 						.requestMatchers( "/error").permitAll())
 				.formLogin(withDefaults())
 				.logout(withDefaults());
