@@ -1,12 +1,13 @@
 package net.koodar.forge.admin.application.vo;
 
 import lombok.Data;
+import net.koodar.forge.common.dto.DTO;
 
 import java.util.Collection;
 import java.util.Set;
 
 @Data
-public class MenuVO {
+public class MenuVO extends DTO {
 
 	/**
 	 * 资源权限名称

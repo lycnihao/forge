@@ -53,4 +53,9 @@ public class PermissionServiceImpl implements PermissionService {
 						.equals(PermissionTypeEnum.PERMISSIONS.getValue()))
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	public List<Permission> listByName(Collection<String> names) {
+		return permissionRepository.findByNameIn(names);
+	}
 }

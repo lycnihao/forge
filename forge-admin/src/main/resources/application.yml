@@ -13,3 +13,5 @@ spring:
         format_sql: false
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  jackson:
+    time-zone: GMT+8

@@ -20,4 +20,6 @@ public interface PermissionService {
 
 	List<Permission> listMenuPermissionByRoleIds(Collection<Long> roleIds);
 
+	List<Permission> listByName(Collection<String> names);
+
 }

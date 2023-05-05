@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Base entity.
@@ -23,18 +23,18 @@ public class BaseEntity {
 	 */
 	@Column(name = "create_time")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date createTime;
+	private LocalDateTime createTime;
 
 	/**
 	 * Update time.
 	 */
 	@Column(name = "update_time")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date updateTime;
+	private LocalDateTime updateTime;
 
 	@PrePersist
 	protected void prePersist() {
-		Date now = new Date();
+		LocalDateTime now = LocalDateTime.now();
 		if (createTime == null) {
 			createTime = now;
 		}
@@ -46,12 +46,12 @@ public class BaseEntity {
 
 	@PreUpdate
 	protected void preUpdate() {
-		updateTime = new Date();
+		updateTime = LocalDateTime.now();
 	}
 
 	@PreRemove
 	protected void preRemove() {
-		updateTime = new Date();
+		updateTime = LocalDateTime.now();
 	}
 
 }

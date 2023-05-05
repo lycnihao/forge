@@ -5,6 +5,7 @@ import net.koodar.forge.admin.application.service.RoleAppService;
 import net.koodar.forge.admin.application.service.UserAppService;
 import net.koodar.forge.admin.domain.entity.Permission;
 import net.koodar.forge.admin.domain.entity.Role;
+import net.koodar.forge.admin.domain.repository.RoleRepository;
 import net.koodar.forge.security.dynamicAuthorization.DynamicSecurityService;
 import net.koodar.forge.security.properties.SecurityProperties;
 import net.koodar.forge.security.superAdmin.SuperAdminInitializer;
@@ -28,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SecurityConfig {
 
 	private final UserAppService userAppService;
-	private final RoleAppService roleAppService;
+	private final RoleRepository roleRepository;
 	private final AppUserDetailsService appUserDetailsService;
 
 	/**
@@ -62,7 +63,7 @@ public class SecurityConfig {
 	 */
 	@Bean
 	DynamicSecurityService dynamicSecurityService() {
-		List<Role> roles = roleAppService.listRole();
+		List<Role> roles = roleRepository.findAll();
 
 		Map<Long, String> roleCodeByPermissionIdMap = new HashMap<>();
 		List<Permission> permissions = new ArrayList<>();

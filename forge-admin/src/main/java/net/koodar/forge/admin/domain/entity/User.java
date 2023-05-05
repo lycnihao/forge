@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import net.koodar.forge.data.jpa.doman.BaseEntity;
 
+import java.util.List;
+
 
 /**
  * 用户表
@@ -85,6 +87,12 @@ public class User extends BaseEntity {
 	 */
 	@Column(name = "administrator_flag")
 	private Boolean administratorFlag = false;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "t_user_role",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private List<Role> roleList;
 
 	@Override
 	public void prePersist() {

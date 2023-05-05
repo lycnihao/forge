@@ -23,6 +23,16 @@ public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 
 	@Override
+	public User findById(Long userId) {
+		return userRepository.findById(userId).orElseThrow(() -> new BizException(String.format("用户[%s]不存在", userId)));
+	}
+
+	@Override
+	public void save(User user) {
+		userRepository.save(user);
+	}
+
+	@Override
 	public void updatePassword(Long userId, String oldPassword, String newPassword, PasswordEncoder passwordEncoder) throws BizException {
 		Optional<User> optionalUser = userRepository.findById(userId);
 		if (optionalUser.isPresent()) {
@@ -33,5 +43,20 @@ public class UserServiceImpl implements UserService {
 			user.setPassword(passwordEncoder.encode(newPassword));
 			userRepository.save(user);
 		}
+	}
+
+	@Override
+	public boolean checkExistsUsername(String username) {
+		Optional<User> optionalUser = userRepository.findByUsername(username);
+		if (optionalUser.isPresent()) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void deleteUser(User user) {
+		user.setDeletedFlag(true);
+		userRepository.save(user);
 	}
 }
