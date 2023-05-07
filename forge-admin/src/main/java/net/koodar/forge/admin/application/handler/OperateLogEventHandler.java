@@ -28,7 +28,10 @@ public class OperateLogEventHandler implements IHandler<OperateLogEvent> {
 						.ip(event.getIp())
 						.userAgent(event.getUserAgent())
 						.failReason(event.getFailReason())
-						.successFlag(event.getSuccessFlag()).build();
+						.successFlag(event.getSuccessFlag())
+						.content(event.getContent())
+						.module(event.getModule())
+						.build();
 		operateLogRepository.save(operateLog);
 	}
 }

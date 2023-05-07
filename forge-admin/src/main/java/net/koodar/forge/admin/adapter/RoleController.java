@@ -1,11 +1,13 @@
 package net.koodar.forge.admin.adapter;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import net.koodar.forge.admin.application.dto.RoleParamDTO;
 import net.koodar.forge.admin.application.dto.RoleQueryDTO;
 import net.koodar.forge.admin.application.service.RoleAppService;
 import net.koodar.forge.common.dto.Response;
+import net.koodar.forge.common.module.operatelog.OperateLog;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
 /**
- * Role controller.
+ * 角色管理接口
  *
  * @author liyc
  */
+@OperateLog
+@Tag(name = "RoleController", description = "系统管理-角色管理")
 @RestController
 @AllArgsConstructor
 public class RoleController {

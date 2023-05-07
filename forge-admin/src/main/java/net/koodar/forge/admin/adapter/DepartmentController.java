@@ -1,10 +1,12 @@
 package net.koodar.forge.admin.adapter;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import net.koodar.forge.admin.application.dto.DepartmentParamDTO;
 import net.koodar.forge.admin.application.service.DepartmentAppService;
 import net.koodar.forge.common.dto.Response;
+import net.koodar.forge.common.module.operatelog.OperateLog;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
  *
  * @author liyc
  */
+@OperateLog
+@Tag(name = "DepartmentController", description = "系统管理-部门")
 @RestController
 @RequiredArgsConstructor
 public class DepartmentController {

@@ -1,6 +1,7 @@
 package net.koodar.forge.admin.adapter;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import net.koodar.forge.admin.application.dto.OperateLogQueryDTO;
 import net.koodar.forge.admin.application.service.OperateLogAppService;
@@ -18,6 +19,7 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
  *
  * @author liyc
  */
+@Tag(name = "OperateLogController", description = "操作日志")
 @RestController
 @RequiredArgsConstructor
 public class OperateLogController {

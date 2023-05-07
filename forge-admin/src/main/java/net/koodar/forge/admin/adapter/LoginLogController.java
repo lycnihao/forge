@@ -1,6 +1,7 @@
 package net.koodar.forge.admin.adapter;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import net.koodar.forge.admin.application.dto.LoginLogQueryDTO;
 import net.koodar.forge.admin.application.service.LoginLogAppService;
@@ -13,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
 /**
- * 登录日志
+ * 登录日志接口
  *
  * @author liyc
  */
+@Tag(name = "LoginLogController", description = "系统管理-登录日志")
 @RestController
 @RequiredArgsConstructor
 public class LoginLogController {

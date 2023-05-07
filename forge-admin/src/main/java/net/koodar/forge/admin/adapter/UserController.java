@@ -1,6 +1,7 @@
 package net.koodar.forge.admin.adapter;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.forge.admin.application.dto.AdjDepartmentParamDTO;
@@ -8,6 +9,7 @@ import net.koodar.forge.admin.application.dto.UserParamDTO;
 import net.koodar.forge.admin.application.dto.UserQueryDTO;
 import net.koodar.forge.admin.application.service.UserAppService;
 import net.koodar.forge.common.dto.Response;
+import net.koodar.forge.common.module.operatelog.OperateLog;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +17,12 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
 /**
- * User controller
+ * 用户管理接口
  *
  * @author liyc
  */
+@OperateLog
+@Tag(name = "UserController", description = "系统管理-用户管理")
 @Slf4j
 @RestController
 @RequiredArgsConstructor

@@ -1,15 +1,21 @@
 package net.koodar.forge.admin.adapter;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import net.koodar.forge.admin.application.dto.PermissionParamDTO;
 import net.koodar.forge.admin.application.service.PermissionAppService;
 import net.koodar.forge.common.dto.Response;
+import net.koodar.forge.common.module.operatelog.OperateLog;
 import org.springframework.web.bind.annotation.*;
 
 /**
+ * 权限菜单接口
+ *
  * @author liyc
  */
+@OperateLog
+@Tag(name = "PermissionController", description = "系统管理-权限菜单")
 @RestController
 @RequiredArgsConstructor
 public class PermissionController {
