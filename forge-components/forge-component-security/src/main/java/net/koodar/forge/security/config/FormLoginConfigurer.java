@@ -82,7 +82,7 @@ public class FormLoginConfigurer implements SecurityConfigurer {
 						.userName(user.getUsername())
 						.userAgent(user.getUserAgent())
 						.loginIp(user.getIp())
-						.loginResult(LoginLogResultEnum.LOGIN_FAIL.getValue())
+						.loginResult(LoginLogResultEnum.LOGIN_SUCCESS.getValue())
 						.build();
 				EventPusher.push(loginEntity);
 			}

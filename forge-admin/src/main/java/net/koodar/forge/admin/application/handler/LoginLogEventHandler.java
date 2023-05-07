@@ -14,7 +14,7 @@ import net.koodar.forge.common.module.loginlog.LoginLogEvent;
  */
 @Handler
 @RequiredArgsConstructor
-public class LoginLogEventListener implements IHandler<LoginLogEvent> {
+public class LoginLogEventHandler implements IHandler<LoginLogEvent> {
 
 	private final LoginLogRepository loginLogRepository;
 

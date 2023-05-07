@@ -1,4 +1,4 @@
-package net.koodar.forge.admin.infrastructure.filter;
+package net.koodar.forge.admin.application.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -10,7 +10,7 @@ import net.koodar.forge.admin.domain.entity.RolePermission;
 import net.koodar.forge.admin.domain.repository.PermissionRepository;
 import net.koodar.forge.admin.domain.repository.RolePermissionRepository;
 import net.koodar.forge.admin.domain.service.PermissionService;
-import net.koodar.forge.admin.infrastructure.enums.PermissionTypeEnum;
+import net.koodar.forge.admin.domain.enums.PermissionTypeEnum;
 import net.koodar.forge.common.code.UserErrorCode;
 import net.koodar.forge.common.dto.MultiResponse;
 import net.koodar.forge.common.dto.Response;

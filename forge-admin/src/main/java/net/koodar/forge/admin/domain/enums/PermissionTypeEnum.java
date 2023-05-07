@@ -1,4 +1,4 @@
-package net.koodar.forge.admin.infrastructure.enums;
+package net.koodar.forge.admin.domain.enums;
 
 /**
  * 权限类型

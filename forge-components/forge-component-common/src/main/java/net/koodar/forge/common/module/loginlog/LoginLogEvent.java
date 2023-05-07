@@ -1,6 +1,7 @@
 package net.koodar.forge.common.module.loginlog;
 
 import lombok.*;
+import net.koodar.forge.common.event.IAsyncEvent;
 import net.koodar.forge.common.event.IEvent;
 
 /**
@@ -14,7 +15,7 @@ import net.koodar.forge.common.event.IEvent;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
-public class LoginLogEvent implements IEvent {
+public class LoginLogEvent implements IAsyncEvent {
 
 	/**
 	 * 用户id

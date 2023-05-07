@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.koodar.forge.admin.domain.entity.Permission;
 import net.koodar.forge.admin.domain.entity.RolePermission;
 import net.koodar.forge.admin.domain.repository.RolePermissionRepository;
-import net.koodar.forge.admin.infrastructure.enums.PermissionTypeEnum;
+import net.koodar.forge.admin.domain.enums.PermissionTypeEnum;
 import net.koodar.forge.admin.domain.repository.PermissionRepository;
 import net.koodar.forge.admin.domain.service.PermissionService;
 import org.springframework.stereotype.Service;
