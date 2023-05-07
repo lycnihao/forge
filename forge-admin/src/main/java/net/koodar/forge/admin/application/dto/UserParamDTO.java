@@ -19,8 +19,6 @@ public class UserParamDTO extends DTO {
 
 	private String nickname;
 
-	private String password;
-
 	private String email;
 
 	private String avatar;

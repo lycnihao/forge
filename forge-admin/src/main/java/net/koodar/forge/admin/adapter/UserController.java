@@ -66,6 +66,17 @@ public class UserController {
 	}
 
 	/**
+	 * 重置用户密码
+	 * @param userId 用户id
+	 * @return 操作结果
+	 */
+	@Operation(summary = "重置用户密码")
+	@PostMapping("/user/update/password/password/reset/{userId}")
+	public Response resetPassword(@PathVariable("userId") Long userId) {
+		return userAppService.resetPassword(userId);
+	}
+
+	/**
 	 * 获取用户列表
 	 *
 	 * @param pageable 分页参数

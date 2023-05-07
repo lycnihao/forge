@@ -23,6 +23,7 @@ import net.koodar.forge.common.dto.Response;
 import net.koodar.forge.common.dto.SingleResponse;
 import net.koodar.forge.common.exception.BizException;
 import net.koodar.forge.security.userdetails.AppUserDetails;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -126,12 +127,14 @@ public class UserAppServiceImpl implements UserAppService {
 	@Override
 	public Response updatePassword( String oldPassword, String newPassword) {
 		AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		try {
-			userService.updatePassword(userDetails.getUserId(), oldPassword, newPassword, passwordEncoder);
-			return Response.ok();
-		} catch (BizException e) {
-			return Response.error(UserErrorCode.PARAM_ERROR, e.getMessage());
+
+		User user = userRepository.findById(userDetails.getUserId()).orElseThrow(() -> new UsernameNotFoundException("用户不存在。"));
+		if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+			return Response.error(UserErrorCode.PARAM_ERROR, "原密码错误，请重新输入。");
 		}
+		user.setPassword(passwordEncoder.encode(newPassword));
+		userRepository.save(user);
+		return Response.ok();
 	}
 
 	@Override
@@ -190,10 +193,6 @@ public class UserAppServiceImpl implements UserAppService {
 		user.setAvatar(userParamDTO.getAvatar());
 		user.setDescription(userParamDTO.getDescription());
 		user.setDepartmentId(userParamDTO.getDepartmentId());
-		if (StringUtils.hasLength(userParamDTO.getPassword())) {
-			String encodePassword = passwordEncoder.encode(userParamDTO.getPassword());
-			user.setPassword(encodePassword);
-		}
 		user.setUsername(userParamDTO.getUsername());
 
 		// 保存用户信息
@@ -220,10 +219,6 @@ public class UserAppServiceImpl implements UserAppService {
 		user.setAvatar(userParamDTO.getAvatar());
 		user.setDescription(userParamDTO.getDescription());
 		user.setDepartmentId(userParamDTO.getDepartmentId());
-		if (StringUtils.hasLength(userParamDTO.getPassword())) {
-			String encodePassword = passwordEncoder.encode(userParamDTO.getPassword());
-			user.setPassword(encodePassword);
-		}
 		user.setUsername(userParamDTO.getUsername());
 
 		user.setUsername(userParamDTO.getUsername());
@@ -263,5 +258,18 @@ public class UserAppServiceImpl implements UserAppService {
 		}
 
 		return Response.ok();
+	}
+
+	@Override
+	public Response resetPassword(long userId) {
+		String randomPassword = randomPassword();
+		User user = userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("用户不存在。"));
+		user.setPassword(passwordEncoder.encode(randomPassword));
+		userRepository.save(user);
+		return SingleResponse.ok(randomPassword);
+	}
+
+	private String randomPassword() {
+		return RandomStringUtils.randomNumeric(6) + RandomStringUtils.randomAlphabetic(2).toLowerCase();
 	}
 }

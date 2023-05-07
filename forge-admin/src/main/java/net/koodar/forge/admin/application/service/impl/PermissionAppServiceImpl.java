@@ -119,7 +119,10 @@ public class PermissionAppServiceImpl implements PermissionAppService {
 		Long parentId = getParentId(permissionParamDTO);
 		permissionParamDTO.setParentId(parentId);
 
-		permissionRepository.findByName(permissionParamDTO.getName()).orElseThrow(() -> new BizException(String.format("当前权限已存在[%s]", permissionParamDTO.getName())));
+		Optional<Permission> optionalPermission = permissionRepository.findByName(permissionParamDTO.getName());
+		if (optionalPermission.isPresent()) {
+			return Response.error(UserErrorCode.ALREADY_EXIST, String.format("当前权限已存在[%s]", permissionParamDTO.getName()));
+		}
 
 		Permission permission = BeanUtil.copy(permissionParamDTO, Permission.class);
 		permissionRepository.save(permission);

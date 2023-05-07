@@ -33,19 +33,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updatePassword(Long userId, String oldPassword, String newPassword, PasswordEncoder passwordEncoder) throws BizException {
-		Optional<User> optionalUser = userRepository.findById(userId);
-		if (optionalUser.isPresent()) {
-			User user = optionalUser.get();
-			if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-				throw new BizException("原密码错误，请重新输入。");
-			}
-			user.setPassword(passwordEncoder.encode(newPassword));
-			userRepository.save(user);
-		}
-	}
-
-	@Override
 	public boolean checkExistsUsername(String username) {
 		Optional<User> optionalUser = userRepository.findByUsername(username);
 		if (optionalUser.isPresent()) {

@@ -26,7 +26,7 @@ public class Permission extends BaseEntity {
 	/**
 	 * 父节点 id
 	 */
-	@Column(name = "parent_id", nullable = false)
+	@Column(name = "parent_id")
 	private Long parentId;
 
 	/**
@@ -57,13 +57,13 @@ public class Permission extends BaseEntity {
 	/**
 	 * 路由地址
 	 */
-	@Column(name = "path", length = 1023, nullable = false)
+	@Column(name = "path", length = 2048, nullable = false)
 	private String path;
 
 	/**
 	 * 重定向地址
 	 */
-	@Column(name = "redirect", length = 1023)
+	@Column(name = "redirect", length = 2048)
 	private String redirect;
 
 	/**

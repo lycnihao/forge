@@ -31,4 +31,6 @@ public interface UserAppService {
 
 	Response adjustDepartment(AdjDepartmentParamDTO adjDepartmentParamDTO);
 
+	Response resetPassword(long userId);
+
 }

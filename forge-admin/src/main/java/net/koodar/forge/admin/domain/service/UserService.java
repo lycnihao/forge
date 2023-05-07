@@ -14,8 +14,6 @@ public interface UserService {
 
 	void save(User user);
 
-	void updatePassword(Long userId, String oldPassword, String newPassword, PasswordEncoder passwordEncoder);
-
 	boolean checkExistsUsername(String username);
 
 	void deleteUser(User user);
