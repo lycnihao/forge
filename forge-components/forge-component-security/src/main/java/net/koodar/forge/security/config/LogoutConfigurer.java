@@ -4,8 +4,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.forge.common.dto.Response;
+import net.koodar.forge.common.event.EventPusher;
+import net.koodar.forge.common.module.loginlog.LoginLogEvent;
+import net.koodar.forge.common.module.loginlog.LoginLogResultEnum;
 import net.koodar.forge.common.utils.JsonUtils;
 import net.koodar.forge.security.properties.SecurityProperties;
+import net.koodar.forge.security.userdetails.AppUserDetails;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.Authentication;
@@ -57,6 +61,20 @@ public class LogoutConfigurer implements SecurityConfigurer {
 			response.getWriter().write(JsonUtils.objectToJson(Response.ok()));
 
 			log.info("You have been logged out, looking forward to your next visit!");
+
+
+			// 记录日志
+			if (authentication.getPrincipal().getClass().equals(AppUserDetails.class)) {
+				AppUserDetails user = (AppUserDetails) authentication.getPrincipal();
+				LoginLogEvent loginEntity = LoginLogEvent.builder()
+						.userId(user.getUserId())
+						.userName(user.getUsername())
+						.userAgent(user.getUserAgent())
+						.loginIp(user.getIp())
+						.loginResult(LoginLogResultEnum.LOGIN_OUT.getValue())
+						.build();
+				EventPusher.push(loginEntity);
+			}
 		}
 	}
 }

@@ -6,10 +6,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import net.koodar.forge.common.dto.SingleResponse;
+import net.koodar.forge.common.event.EventPusher;
+import net.koodar.forge.common.module.loginlog.LoginLogEvent;
+import net.koodar.forge.common.module.loginlog.LoginLogResultEnum;
 import net.koodar.forge.security.exception.CustomizeAuthenticationEntryPoint;
 import net.koodar.forge.security.jwt.JwtService;
 import net.koodar.forge.security.properties.SecurityProperties;
 import net.koodar.forge.common.utils.JsonUtils;
+import net.koodar.forge.security.userdetails.AppUserDetails;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -69,6 +74,18 @@ public class FormLoginConfigurer implements SecurityConfigurer {
 			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 			response.getWriter().write(JsonUtils.objectToJson(SingleResponse.ok(token)));
 
+			// 记录日志
+			if (authentication.getPrincipal().getClass().equals(AppUserDetails.class)) {
+				AppUserDetails user = (AppUserDetails) authentication.getPrincipal();
+				LoginLogEvent loginEntity = LoginLogEvent.builder()
+						.userId(user.getUserId())
+						.userName(user.getUsername())
+						.userAgent(user.getUserAgent())
+						.loginIp(user.getIp())
+						.loginResult(LoginLogResultEnum.LOGIN_FAIL.getValue())
+						.build();
+				EventPusher.push(loginEntity);
+			}
 		}
 	}
 
