@@ -29,8 +29,8 @@ public class SwaggerConfig {
 						.addSecuritySchemes("BearerAuth", new SecurityScheme()
 								.type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")))
 				.addSecurityItem(new SecurityRequirement().addList("BasicAuth").addList("BearerAuth"))
-				.info(new Info().title("SuiteAdmin API")
-						.description("SuiteAdmin Api文档")
+				.info(new Info().title("ForgeAdmin API")
+						.description("ForgeAdmin Api文档")
 						.version("0.0.1")
 						.contact(new Contact().name("lycnihao").email("38707145@qq.com").url("https://github.com/lycnihao/forge")));
 	}
