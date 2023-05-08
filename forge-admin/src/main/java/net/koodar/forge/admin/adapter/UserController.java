@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
 /**
@@ -116,15 +118,27 @@ public class UserController {
 	}
 
 	/**
-	 * 删除用户
+	 * 批量删除用户
+	 *
+	 * @param userId 用户Ids
+	 * @return 操作结果
+	 */
+	@Operation(summary = "批量删除用户")
+	@PostMapping("/user/batch/delete")
+	public Response deletedUser(@RequestBody List<Long> userId) {
+		return userAppService.batchUpdateDeleteFlag(userId);
+	}
+
+	/**
+	 * 禁用用户
 	 *
 	 * @param userId 用户Id
 	 * @return 操作结果
 	 */
-	@Operation(summary = "删除用户")
-	@PostMapping("/user/delete")
-	public Response deletedUser(@RequestParam Long userId) {
-		return userAppService.deleteUser(userId);
+	@Operation(summary = "禁用用户")
+	@PostMapping("/user/disabled")
+	public Response disabledUser(@RequestParam Long userId) {
+		return userAppService.disabledUser(userId);
 	}
 
 	/**

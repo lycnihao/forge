@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.lang.NonNull;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -30,4 +31,6 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 	 */
 	@NonNull
 	Optional<User> findByEmail(@NonNull String email);
+
+	List<User> findByIdIn(List<Long> ids);
 }

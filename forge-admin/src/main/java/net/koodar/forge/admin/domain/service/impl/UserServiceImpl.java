@@ -6,9 +6,9 @@ import net.koodar.forge.admin.domain.entity.User;
 import net.koodar.forge.admin.domain.repository.UserRepository;
 import net.koodar.forge.admin.domain.service.UserService;
 import net.koodar.forge.common.exception.BizException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -21,6 +21,11 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
+
+	@Override
+	public List<User> listByIds(List<Long> userIds) {
+		return userRepository.findByIdIn(userIds);
+	}
 
 	@Override
 	public User findById(Long userId) {
@@ -42,8 +47,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void batchSave(List<User> users) {
+		userRepository.saveAll(users);
+	}
+
+	@Override
 	public void deleteUser(User user) {
 		user.setDeletedFlag(true);
+		userRepository.save(user);
+	}
+
+	@Override
+	public void disabledUser(User user) {
+		user.setStatus(0);
 		userRepository.save(user);
 	}
 }

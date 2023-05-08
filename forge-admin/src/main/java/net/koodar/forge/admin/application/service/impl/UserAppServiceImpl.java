@@ -21,7 +21,6 @@ import net.koodar.forge.admin.domain.service.UserService;
 import net.koodar.forge.common.code.UserErrorCode;
 import net.koodar.forge.common.dto.Response;
 import net.koodar.forge.common.dto.SingleResponse;
-import net.koodar.forge.common.exception.BizException;
 import net.koodar.forge.security.userdetails.AppUserDetails;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.domain.Page;
@@ -241,9 +240,28 @@ public class UserAppServiceImpl implements UserAppService {
 	}
 
 	@Override
-	public Response deleteUser(long userId) {
+	public Response batchUpdateDeleteFlag(List<Long> userId) {
+		List<User> userList = userService.listByIds(userId);
+		if (userList.isEmpty()) {
+			return Response.ok();
+		}
+		for (User user : userList) {
+			if (user.getAdministratorFlag()) {
+				return Response.error(UserErrorCode.PARAM_ERROR, "超级管理员用户不能删除哦~");
+			}
+			user.setDeletedFlag(true);
+		}
+		userService.batchSave(userList);
+		return Response.ok();
+	}
+
+	@Override
+	public Response disabledUser(long userId) {
 		User user = userService.findById(userId);
-		userService.deleteUser(user);
+		if (user.getAdministratorFlag()) {
+			return Response.error(UserErrorCode.PARAM_ERROR, "您不能禁用超级管理员哦~");
+		}
+		userService.disabledUser(user);
 		return Response.ok();
 	}
 

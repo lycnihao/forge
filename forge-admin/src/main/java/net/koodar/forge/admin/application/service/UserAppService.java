@@ -6,6 +6,8 @@ import net.koodar.forge.admin.application.dto.UserQueryDTO;
 import net.koodar.forge.common.dto.Response;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * @author liyc
  */
@@ -27,7 +29,9 @@ public interface UserAppService {
 
 	Response updateUser(UserParamDTO userParamDTO);
 
-	Response deleteUser(long userId);
+	Response batchUpdateDeleteFlag(List<Long> userIds);
+
+	Response disabledUser(long userId);
 
 	Response adjustDepartment(AdjDepartmentParamDTO adjDepartmentParamDTO);
 
