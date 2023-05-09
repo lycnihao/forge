@@ -27,11 +27,9 @@ public enum UserErrorCode implements ErrorCode {
 
 	LOGIN_STATE_INVALID(30007, "您还未登录或登录失效，请重新登录！"),
 
-	LOGIN_BAD_CREDENTIALS(30008, "貌似您输入的账号或密码有点问题哦请再检查一下呢~"),
+	USER_STATUS_ERROR(30008, "用户状态异常"),
 
-	USER_STATUS_ERROR(30009, "用户状态异常"),
-
-	FORM_REPEAT_SUBMIT(30010, "请勿重复提交");
+	FORM_REPEAT_SUBMIT(30009, "请勿重复提交");
 
 	private final int code;
 

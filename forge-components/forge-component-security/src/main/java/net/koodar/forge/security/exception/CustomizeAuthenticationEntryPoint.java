@@ -48,8 +48,8 @@ public class CustomizeAuthenticationEntryPoint implements AuthenticationEntryPoi
 			errorDetail.setErrCode(UserErrorCode.LOGIN_STATE_INVALID.getCode());
 			errorDetail.setErrMessage(UserErrorCode.LOGIN_STATE_INVALID.getMsg());
 		} else if (t instanceof BadCredentialsException){
-			errorDetail.setErrCode(UserErrorCode.LOGIN_BAD_CREDENTIALS.getCode());
-			errorDetail.setErrMessage(UserErrorCode.LOGIN_BAD_CREDENTIALS.getMsg());
+			errorDetail.setErrCode(UserErrorCode.PARAM_ERROR.getCode());
+			errorDetail.setErrMessage("账号或密码匹配失败");
 		} else {
 			errorDetail.setErrCode(UserErrorCode.LOGIN_STATE_INVALID.getCode());
 			errorDetail.setErrMessage(UserErrorCode.LOGIN_STATE_INVALID.getMsg());
