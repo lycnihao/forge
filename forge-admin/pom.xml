@@ -83,7 +83,7 @@
                 <directory>src/main/resources/${profiles.active}</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>*.yml</include>
+                    <include>*.yaml</include>
                 </includes>
             </resource>
 
@@ -130,7 +130,7 @@
                 <profiles.active>dev</profiles.active>
             </properties>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
         <!--测试环境-->
