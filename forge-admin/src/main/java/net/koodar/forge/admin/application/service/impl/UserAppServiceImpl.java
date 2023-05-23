@@ -194,6 +194,9 @@ public class UserAppServiceImpl implements UserAppService {
 		user.setDepartmentId(userParamDTO.getDepartmentId());
 		user.setUsername(userParamDTO.getUsername());
 
+		String randomPassword = RandomStringUtils.randomAlphanumeric(8);
+		user.setPassword(passwordEncoder.encode(randomPassword));
+
 		// 保存用户信息
 		userRepository.save(user);
 
