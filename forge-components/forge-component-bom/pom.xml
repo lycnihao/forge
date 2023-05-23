@@ -14,8 +14,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <springboot.version>3.0.5</springboot.version>
-        <springboot.security.version>3.0.2</springboot.security.version>
+        <springboot.version>3.1.0</springboot.version>
+        <springboot.security.version>3.1.0</springboot.security.version>
     </properties>
 
     <dependencies>
