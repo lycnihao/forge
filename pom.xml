@@ -15,4 +15,7 @@
     <module>forge-components</module>
   </modules>
 
+  <properties>
+  </properties>
+
 </project>
