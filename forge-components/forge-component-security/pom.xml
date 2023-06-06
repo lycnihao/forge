@@ -5,6 +5,7 @@
         <groupId>net.koodar.forge</groupId>
         <artifactId>forge-components-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>forge-component-security</artifactId>
