@@ -70,7 +70,7 @@ public class PermissionAppServiceImpl implements PermissionAppService {
 		}
 		List<Permission> parentPermissions = permissions
 				.stream()
-				.filter(permission -> permission.getParentId() != null && permission.getParentId() <= 0)
+				.filter(permission -> permission.getParentId() == null || permission.getParentId() <= 0)
 				.toList();
 		return MultiResponse.ok(toMenusTree(parentPermissions, permissions));
 	}
@@ -80,7 +80,7 @@ public class PermissionAppServiceImpl implements PermissionAppService {
 		List<Permission> permissions = permissionService.allPermission();
 		List<Permission> parentPermissions = permissions
 				.stream()
-				.filter(permission -> permission.getParentId() != null && permission.getParentId() <= 0)
+				.filter(permission -> permission.getParentId() == null || permission.getParentId() <= 0)
 				.toList();
 		List<PermissionVo> permissionTree = toTree(parentPermissions, permissions);
 		return MultiResponse.ok(permissionTree);
@@ -101,7 +101,7 @@ public class PermissionAppServiceImpl implements PermissionAppService {
 			permissionVo.setSort(permission.getSort());
 			permissionVo.setKeepAlive(permission.getKeepAlive());
 			List<Permission> childrenList = allPermissions.stream()
-					.filter(p -> p.getParentId().equals(permission.getId()))
+					.filter(p -> p.getParentId() != null && p.getParentId().equals(permission.getId()))
 					.collect(Collectors.toList());
 			if (!permissions.isEmpty()) {
 				List<PermissionVo> children = toTree(childrenList, allPermissions);
@@ -196,7 +196,7 @@ public class PermissionAppServiceImpl implements PermissionAppService {
 		for (Permission permission : permissions) {
 			MenuVO menuVo = toMenus(permission);
 			List<Permission> childrenList = allPermissions.stream()
-					.filter(p -> p.getParentId().equals(permission.getId()))
+					.filter(p -> p.getParentId() != null && p.getParentId().equals(permission.getId()))
 					.collect(Collectors.toList());
 			if (!permissions.isEmpty()) {
 				List<MenuVO> childrenMenus = toMenusTree(childrenList, allPermissions);
