@@ -10,12 +10,16 @@
   <name>forge</name>
   <url>https://www.koodar.net</url>
 
-  <modules>
-    <module>forge-admin</module>
-    <module>forge-components</module>
-  </modules>
-
   <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <modules>
+    <module>forge-components</module>
+    <module>forge-admin</module>
+    <module>forge-goods</module>
+  </modules>
 
 </project>
