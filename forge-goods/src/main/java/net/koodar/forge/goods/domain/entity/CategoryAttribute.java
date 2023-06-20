@@ -40,7 +40,7 @@ public class CategoryAttribute extends BaseEntity {
     /**
      * 分类ID
      */
-    @Column(name = "category_id")
+    @Column(name = "category_id", nullable = false)
     private Long categoryId;
 
     /**

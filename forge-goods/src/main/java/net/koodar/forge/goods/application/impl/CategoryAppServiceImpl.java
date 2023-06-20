@@ -10,10 +10,15 @@ import net.koodar.forge.goods.adapter.dto.CategoryParamDTO;
 import net.koodar.forge.goods.adapter.dto.CategoryQueryDTO;
 import net.koodar.forge.goods.application.CategoryAppService;
 import net.koodar.forge.goods.domain.entity.Category;
+import net.koodar.forge.goods.domain.entity.CategoryAttribute;
+import net.koodar.forge.goods.domain.entity.CategoryAttributeValue;
+import net.koodar.forge.goods.domain.repository.CategoryAttributeRepository;
+import net.koodar.forge.goods.domain.repository.CategoryAttributeValueRepository;
 import net.koodar.forge.goods.domain.repository.CategoryRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.webjars.NotFoundException;
 
@@ -30,6 +35,8 @@ import java.util.List;
 public class CategoryAppServiceImpl implements CategoryAppService {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryAttributeRepository categoryAttributeRepository;
+    private final CategoryAttributeValueRepository categoryAttributeValueRepository;
 
     @Override
     public Response listTree() {
@@ -53,6 +60,23 @@ public class CategoryAppServiceImpl implements CategoryAppService {
 
         List<Category> children = categoryRepository.findByParentId(id);
         category.setChildren(children);
+
+        // 获取分类属性
+        List<CategoryAttribute> attributeList = categoryAttributeRepository.findByCategoryId(id);
+        category.setAttributeList(attributeList);
+        // 获取分类属性值
+        List<Long> attributeIdList = attributeList.stream().map(CategoryAttribute::getId).toList();
+        List<CategoryAttributeValue> attributeValueList = categoryAttributeValueRepository.findByAttributeIdIn(attributeIdList);
+        attributeValueList.forEach(attributeValue -> {
+            attributeList.forEach(attribute -> {
+                if (attribute.getId().equals(attributeValue.getAttributeId())) {
+                    if (attribute.getAttributeValueList() == null) {
+                        attribute.setAttributeValueList(new ArrayList<>());
+                    }
+                    attribute.getAttributeValueList().add(attributeValue);
+                }
+            });
+        });
         return SingleResponse.ok(category);
     }
 
@@ -75,6 +99,7 @@ public class CategoryAppServiceImpl implements CategoryAppService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Response addCategory(CategoryParamDTO categoryParamDTO) {
         boolean exists = categoryRepository.existsByParentIdAndCode(categoryParamDTO.getParentId(), categoryParamDTO.getCode());
         if (exists) {
@@ -82,10 +107,27 @@ public class CategoryAppServiceImpl implements CategoryAppService {
         }
         Category category = categoryParamDTO.toEntity();
         categoryRepository.save(category);
+
+        // 保存分类属性
+        List<CategoryAttribute> attributeList = category.getAttributeList();
+        if (attributeList != null && !attributeList.isEmpty()) {
+            attributeList.forEach(attribute -> attribute.setCategoryId(category.getId()));
+            categoryAttributeRepository.saveAll(attributeList);
+
+            // 保存分类属性值
+            for (CategoryAttribute categoryAttribute : attributeList) {
+                List<CategoryAttributeValue> attributeValueList = categoryAttribute.getAttributeValueList();
+                if (attributeValueList != null && !attributeValueList.isEmpty()) {
+                    attributeValueList.forEach(attributeValue -> attributeValue.setAttributeId(categoryAttribute.getId()));
+                    categoryAttributeValueRepository.saveAll(attributeValueList);
+                }
+            }
+        }
         return Response.ok();
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Response updateCategory(CategoryParamDTO categoryParamDTO) {
         Category dbCategory = categoryRepository.findByParentIdAndCode(categoryParamDTO.getParentId(), categoryParamDTO.getCode());
         if (dbCategory != null && !dbCategory.getId().equals(categoryParamDTO.getId())) {
@@ -93,6 +135,32 @@ public class CategoryAppServiceImpl implements CategoryAppService {
         }
         Category category = categoryParamDTO.toEntity();
         categoryRepository.save(category);
+
+        // 查询分类属性
+        List<CategoryAttribute> dbAttributeList = categoryAttributeRepository.findByCategoryId(category.getId());
+        // 删除分类属性值
+        for (CategoryAttribute categoryAttribute : dbAttributeList) {
+            List<CategoryAttributeValue> dbAttributeValueList = categoryAttributeValueRepository.findByAttributeId(categoryAttribute.getId());
+            categoryAttributeValueRepository.deleteAll(dbAttributeValueList);
+        }
+        // 删除分类属性
+        categoryAttributeRepository.deleteAll(dbAttributeList);
+
+        // 保存分类属性
+        List<CategoryAttribute> attributeList = category.getAttributeList();
+        if (attributeList != null && !attributeList.isEmpty()) {
+            attributeList.forEach(attribute -> attribute.setCategoryId(category.getId()));
+            categoryAttributeRepository.saveAll(attributeList);
+
+            // 保存分类属性值
+            for (CategoryAttribute categoryAttribute : attributeList) {
+                List<CategoryAttributeValue> attributeValueList = categoryAttribute.getAttributeValueList();
+                if (attributeValueList != null && !attributeValueList.isEmpty()) {
+                    attributeValueList.forEach(attributeValue -> attributeValue.setAttributeId(categoryAttribute.getId()));
+                    categoryAttributeValueRepository.saveAll(attributeValueList);
+                }
+            }
+        }
         return Response.ok();
     }
 

@@ -62,7 +62,7 @@ public class OperateLog extends BaseEntity {
 	/**
 	 * 请求参数
 	 */
-	@Column(name = "param", length = 1023, nullable = false)
+	@Column(name = "param", length = 2047, nullable = false)
 	private String param;
 
 	/**

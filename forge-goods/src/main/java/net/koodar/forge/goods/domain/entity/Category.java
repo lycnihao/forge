@@ -70,8 +70,7 @@ public class Category extends BaseEntity {
     /**
      * 分类属性
      */
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @Transient
     private List<CategoryAttribute> attributeList;
 
     /**
