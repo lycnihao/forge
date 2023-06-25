@@ -130,9 +130,14 @@ public class CategoryAppServiceImpl implements CategoryAppService {
     @Transactional(rollbackFor = Exception.class)
     public Response updateCategory(CategoryParamDTO categoryParamDTO) {
         Category dbCategory = categoryRepository.findByParentIdAndCode(categoryParamDTO.getParentId(), categoryParamDTO.getCode());
-        if (dbCategory != null && !dbCategory.getId().equals(categoryParamDTO.getId())) {
+        if (!dbCategory.getId().equals(categoryParamDTO.getId())) {
             return SingleResponse.error(UserErrorCode.ALREADY_EXIST, "分类编码已存在");
         }
+
+        if (countByParentId(dbCategory.getId()) > 0 && !categoryParamDTO.getSubFlag()) {
+            return SingleResponse.error(UserErrorCode.PARAM_ERROR,"分类下存在子分类，不能修改为正常节点");
+        }
+
         Category category = categoryParamDTO.toEntity();
         categoryRepository.save(category);
 
@@ -166,6 +171,9 @@ public class CategoryAppServiceImpl implements CategoryAppService {
 
     @Override
     public Response deleteCategory(Long id) {
+        if (countByParentId(id) > 0) {
+            return SingleResponse.error(UserErrorCode.PARAM_ERROR,"分类下存在子分类，不能删除");
+        }
         categoryRepository.deleteById(id);
         return Response.ok();
     }
@@ -176,6 +184,11 @@ public class CategoryAppServiceImpl implements CategoryAppService {
         category.setStatusFlag(false);
         categoryRepository.save(category);
         return Response.ok();
+    }
+
+    // 查询商品分类的子分类总条数
+    private Long countByParentId(Long parentId) {
+        return categoryRepository.countByParentId(parentId);
     }
 
     private List<Category> toTree(List<Category> rootCategoryList, List<Category> categoryList) {
