@@ -18,4 +18,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long>, JpaSp
 
     Category findByParentIdAndCode(Long parentId, String code);
 
+    long countByParentId(Long parentId);
+
 }
