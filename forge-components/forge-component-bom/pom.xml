@@ -20,6 +20,7 @@
         <commons-collections4.version>4.4</commons-collections4.version>
         <hutool.version>5.7.7</hutool.version>
         <springdoc-openapi.version>2.0.2</springdoc-openapi.version>
+        <xxl-job-core.version>2.4.0</xxl-job-core.version>
     </properties>
 
     <dependencies>
@@ -84,6 +85,12 @@
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                 <version>${springdoc-openapi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job-core.version}</version>
             </dependency>
 
         </dependencies>

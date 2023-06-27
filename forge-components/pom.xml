@@ -21,6 +21,7 @@
         <module>forge-component-common</module>
         <module>forge-component-security</module>
         <module>forge-component-data-jpa</module>
+        <module>forge-component-xxl-job</module>
     </modules>
 
     <properties>

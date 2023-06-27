@@ -1,10 +1,12 @@
 server:
   port: 8080
 spring:
+  application:
+    name: forge-admin
   profiles:
     active: '@profiles.active@'
   datasource:
-    url: jdbc:postgresql://localhost:5432/forge_dev
+    url: jdbc:postgresql://localhost:5432/forge
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver

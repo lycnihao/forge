@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+net.koodar.forge.xxljob.AutoConfiguration
+net.koodar.forge.xxljob.config.XxlJobConfig
