@@ -20,7 +20,7 @@
     <module>forge-components</module>
     <module>forge-admin</module>
     <module>forge-goods</module>
-    <module>forge-amazon-ads</module>
+    <module>forge-amazon</module>
   </modules>
 
 </project>

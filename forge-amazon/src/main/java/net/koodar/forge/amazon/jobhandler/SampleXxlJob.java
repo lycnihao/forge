@@ -1,4 +1,4 @@
-package net.koodar.forge.amazon.ads.jobhandler;
+package net.koodar.forge.amazon.jobhandler;
 
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;

@@ -30,7 +30,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
  *
  * @author liyc
  */
-@Configuration
+@Configuration("forgeSecurityAutoConfiguration")
 @EnableMethodSecurity
 public class AutoConfiguration {
 

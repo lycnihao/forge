@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author liyc
  */
-@Configuration
+@Configuration("forgeXxlJobAutoConfiguration")
 public class AutoConfiguration {
 
 
