@@ -23,9 +23,11 @@ public class DynamicSecurityConfig implements SecurityConfigurer {
 	public void configure(HttpSecurity httpSecurity) {
 		try {
 			httpSecurity
-					.authorizeHttpRequests()
-					// 动态权限认证（默认都需要登录）
-					.anyRequest().access(dynamicAuthorizationManager);
+					.authorizeHttpRequests(
+							authorization -> authorization
+									// 动态权限认证（默认都需要登录）
+									.anyRequest().access(dynamicAuthorizationManager)
+					);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

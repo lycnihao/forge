@@ -8,6 +8,7 @@
         <version>dummy-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+    <groupId>net.koodar.forge.admin</groupId>
     <artifactId>forge-amazon</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>forge-amazon</name>
