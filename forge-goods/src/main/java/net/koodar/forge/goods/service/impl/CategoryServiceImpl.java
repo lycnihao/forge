@@ -129,7 +129,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response updateCategory(CategoryParamDTO categoryParamDTO) {
-        Category dbCategory = categoryRepository.findByParentIdAndCode(categoryParamDTO.getParentId(), categoryParamDTO.getCode());
+        Category dbCategory = categoryRepository.findById(categoryParamDTO.getId()).orElseThrow(() -> new NotFoundException("分类不存在"));
         if (!dbCategory.getId().equals(categoryParamDTO.getId())) {
             return SingleResponse.error(UserErrorCode.ALREADY_EXIST, "分类编码已存在");
         }
