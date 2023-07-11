@@ -8,7 +8,6 @@
         <version>dummy-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>net.koodar.forge.admin</groupId>
     <artifactId>forge-amazon</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>forge-amazon</name>
@@ -33,11 +32,11 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <dependency>
-            <groupId>net.koodar.forge</groupId>
-            <artifactId>forge-component-xxl-job</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>net.koodar.forge</groupId>-->
+<!--            <artifactId>forge-component-xxl-job</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
